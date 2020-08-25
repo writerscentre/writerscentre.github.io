@@ -64,10 +64,10 @@ String
 
 ## Render
 
-
+The `render` method builds an HTML that outputs a 
 
 ```
- public function render()
+public function render()
 {
     $ohtml = "<div class='awc-blog-sidebar'>";
     $ehtml = "</div>";
