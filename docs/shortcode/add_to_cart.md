@@ -19,10 +19,12 @@ The constructor class. This class adds the Class functions into the shortcode.
 ```
 // Line 43
 public function __construct()
-    {
-        add_shortcode('awc_add_to_cart_button', array($this, 'start'));
-    }
+{
+    add_shortcode('awc_add_to_cart_button', array($this, 'start'));
+}
 ```
+
+---
 
 ## Start
 
@@ -55,6 +57,7 @@ public function start($atts = [])
  - *text* - Text attribute that will override the default text "Add to Cart"
  - *color* - Color attribute that will override the default button color "Red", the colours can be seen in the AWC settings in the backend.
  
+---
 
 ## Render
 
@@ -89,6 +92,8 @@ public function render()
 }
 ```
 
+---
+
 ## IdentifyColor
 
 This method identify and returns the color that should be added as a class to the rendered HTML.
@@ -103,7 +108,12 @@ private function identifyColor( $color )
 
 ### Parameters
 
+`$color` the color that will overwrite the default color of the button.
+
 ### Return Type
+String
+
+---
 
 # Source
 

@@ -53,12 +53,92 @@ public function start($atts = [])
  **Accept**
  
  - *$id* - The ID of the post or product
- - *limit* - 
- - *categories* - 
+ - *limit*
+ - *categories* 
  
 
 ### Return Type
 String 
+
+---
+
+## Render
+
+
+
+```
+ public function render()
+{
+    $ohtml = "<div class='awc-blog-sidebar'>";
+    $ehtml = "</div>";
+    $html = "";
+
+    //Loop in thru all courses
+    foreach($this->courses as $course){
+
+        //Check if the product is a variation or a simple product;
+        $id = $course->variation_id <> "" ? $course->variation_id : $course->id;
+        $parentCourse = wc_get_product($course->id);
+
+        $is_displayed = get_post_meta($id,'_is_displayed_product')[0];
+
+        if($is_displayed == "yes"){
+            if($parentCourse <> "") {
+                $title = $parentCourse->get_title();
+                $image = get_the_post_thumbnail_url($course->id) <> ""
+                    ? get_the_post_thumbnail_url($course->id)
+                    : wc_placeholder_img_src();
+
+                if($course->variation_id <> ""){
+                    $startDate = get_post_meta($id,'_start_date')[0] <> ""
+                        ? Carbon::createFromFormat('l j F Y', get_post_meta($id,'_start_date')[0])->format('j F Y')
+                        : get_post_meta($id,'_not_a_start_date')[0];
+                } else {
+                    $startDate = get_post_meta($course->id,'variable-product-start-date')[0] <> ""
+                        ? date('j F Y', strtotime( get_post_meta($course->id,'variable-product-start-date')[0]))
+                        : get_post_meta($id,'_not_a_start_date')[0];
+                }
+
+                $shortStatus = get_post_meta($id, '_short_status')[0];
+
+                $permalink = get_permalink($course->id);
+                $price = $this->helper->getPrice($id);
+                $location = $course->variation_id <> "" ? get_post(get_post_meta($id, '_location')[0])->post_title : get_post(get_post_meta($id, 'location')[0])->post_title;
+
+                $html .= "
+                <a href='{$permalink}' class='awc-blog-sidebar__widget awc-blog-widget__{$id}' data-product-id='{$id}'>
+                    <div class='awc-blog-sidebar__widget__image'>
+                        <img src='{$image}' alt=''>
+                    </div>
+                    <div class='awc-blog-sidebar__widget__content'>
+                        <div class='details'>
+                            <p class='title'>{$title}</p>
+                        </div>
+                       
+                        <div class='start-date'>
+                            <p class='start-date'>Starts {$startDate}</p>
+                        </div>
+
+                    </div>
+                </a>
+            ";
+            }
+        }
+    }
+    return $ohtml . $html . $ehtml;
+}
+```
+
+### Return Type
+String | HTML
+
+---
+
+## GetCourses
+
+Method to save all course to the 
+
+---
 
 # Source
 

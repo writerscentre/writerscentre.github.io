@@ -30,6 +30,8 @@ public function start(); : String
 ### Return Type
 String | HTML
 
+---
+
 ## Render
 
 ```
@@ -39,6 +41,8 @@ public function render() : String | HTML
 
 ### Return Type
 String | HTML
+
+---
 
 # Source
 
