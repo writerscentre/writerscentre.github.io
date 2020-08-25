@@ -52,7 +52,7 @@ public function start($atts = [])
 
  **Accept**
  
- - *$id* - The ID of the post or product
+ - *$id* - The ID of the post or product 
  - *limit*
  - *categories* 
  
